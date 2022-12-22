@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: 12345678
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+# SWAGGER
+api:
+  common:
+    version: 1.0.0
+    title: Code Challenge
+    description: Represent an code challenge app. <br> Has CRUD operation respect client information.
+    termsOfServiceUrl:
+    license:
+    licenseUrl:
+    contact:
+      name: erojas
+      url: https://github.com/Erojas14th
+      email: erojas14ths@gmail.com
+# LOGGER
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

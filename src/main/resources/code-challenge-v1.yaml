@@ -1,0 +1,169 @@
+swagger: "2.0"
+info:
+  title: Code Challenge
+  description: Represent an code challenge app. <br> Has CRUD operation respect client information.
+  version: 1.0.0
+  contact:
+    name: erojas
+    email: erojas14ths@gmail.com
+    url: https://github.com/Erojas14th
+tags:
+  - name: findAll
+    description: Find all clients information
+  - name: findOne
+    description: Find one client information
+  - name: save
+    description: Save a client information
+  - name: update
+    description: Update a client information
+paths:
+  /findAll:
+    get:
+      tags:
+        - findAll
+      operationId: findAll
+      description: "Find all clients information"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref:
+                "#/definitions/Client"
+        "400":
+          description: "BAD REQUEST"
+          schema:
+            $ref: "#/definitions/Error"
+        "404":
+          description: "NOT FOUND"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "INTERNAL SERVER ERROR"
+          schema:
+            $ref: "#/definitions/Error"
+  /findOne:
+    get:
+      tags:
+        - findOne
+      operationId: findOne
+      description: "Find one client information"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "codigoUnico"
+          description: "ID client"
+          in: query
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/Client"
+        "400":
+
+          description: "BAD REQUEST"
+          schema:
+            $ref: "#/definitions/Error"
+        "404":
+          description: "NOT FOUND"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "INTERNAL SERVER ERROR"
+          schema:
+            $ref: "#/definitions/Error"
+  /save:
+    post:
+      tags:
+        - save
+      operationId: save
+      description: "Save a client information"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "client"
+          description: "Body client information"
+          required: true
+          schema:
+            $ref: "#/definitions/Client"
+      responses:
+        "200":
+          description: "Save OK"
+          schema:
+            $ref: "#/definitions/Client"
+  /update:
+    put:
+      tags:
+        - update
+      operationId: update
+      description: "Update a client information"
+      consumes:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "client"
+          description: "Body client information"
+          required: true
+          schema:
+            $ref: "#/definitions/Client"
+      responses:
+        "200":
+          description: "Update OK"
+  /delete:
+    delete:
+      tags:
+        - delete
+      operationId: delete
+      description: "Delete a client"
+      parameters:
+        - name: "codigoUnico"
+          description: "ID client"
+          in: query
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "OK"
+        "404":
+          description: "NOT FOUND"
+          schema:
+            $ref: "#/definitions/Error"
+definitions:
+  Client:
+    type: object
+    properties:
+      nombres:
+        type: string
+        description: "Represent firstName"
+        example: "Juan"
+      apellidos:
+        type: string
+        description: "Represent lastName"
+        example: "Soto Espinoza"
+      tipoDocumento:
+        type: string
+        description: "Represent document type such as DNI, RUC, etc"
+        example: "DNI"
+      numeroDocumento:
+        type: string
+        description: "Represent document number"
+        example: "12345678"
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        description: "HTTP status"
+        example: "200(OK), 404(NOT FOUND), etc."
+      message:
+        type: string
+        description: "Error details"
+        example: "HTTP error by null or empty value"
